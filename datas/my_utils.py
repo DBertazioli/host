@@ -1,6 +1,7 @@
 import keras
 from keras import backend as K
 import matplotlib as plt
+import numpy as np
 
 #METRICS
 def recall(y_true, y_pred):
