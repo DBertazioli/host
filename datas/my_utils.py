@@ -4,6 +4,7 @@ import keras
 from keras import backend as K
 import matplotlib 
 from matplotlib import pyplot as plt
+import tensorflow as tf
 #METRICS
 def recall(y_true, y_pred):
         tp = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
