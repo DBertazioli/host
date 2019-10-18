@@ -94,7 +94,7 @@ class TrainingPlot(keras.callbacks.Callback):
             clear_output(wait=True)
             N = np.arange(0, len(self.losses))
             
-            %matplotlib inline
+            #%matplotlib inline
             plt.style.use("seaborn")
             plt.figure()
             plt.plot(N, self.losses, label = "train_loss")
