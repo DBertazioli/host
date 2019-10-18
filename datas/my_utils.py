@@ -1,9 +1,9 @@
+from pyforest import *
 import numpy as np
 import keras
 from keras import backend as K
 import matplotlib 
 from matplotlib import pyplot as plt
-
 #METRICS
 def recall(y_true, y_pred):
         tp = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -56,8 +56,6 @@ def tot_loss(y_true, y_pred):
 
 
 #CALLBACKS
-from IPython.display import clear_output
-
 class Better_verbose(keras.callbacks.Callback):
     
     def on_train_begin(self, logs={}):
@@ -72,44 +70,4 @@ class Better_verbose(keras.callbacks.Callback):
         if len(self.losses)%10==0:
           print(logs)
           
-class TrainingPlot(keras.callbacks.Callback):
-    
-    def on_train_begin(self, logs={}):
-        self.losses = []
-        self.acc = []
-        self.val_losses = []
-        self.val_acc = []
-        self.f1=[]
-        self.val_f1=[]
-        self.logs = []
-    
-    def on_epoch_end(self, epoch, logs={}):
-        self.logs.append(logs)
-        self.losses.append(logs.get('loss'))
-        self.acc.append(logs.get('acc'))
-        self.val_losses.append(logs.get('val_loss'))
-        self.val_acc.append(logs.get('val_acc'))
-        self.f1.append(logs.get('f1'))
-        self.val_f1.append(logs.get('val_f1'))
-        
-        if len(self.losses)%10==0:
-            
-            clear_output(wait=True)
-            N = np.arange(0, len(self.losses))
-            
-            #%matplotlib inline
-            plt.style.use("seaborn")
-            plt.figure()
-            plt.plot(N, self.losses, label = "train_loss")
-            plt.plot(N, self.acc, label = "train_acc")
-            plt.plot(N, self.val_losses, label = "val_loss")
-            plt.plot(N, self.val_acc, label = "val_acc")
-            plt.plot(N, self.f1, label = "f1")
-            plt.plot(N, self.val_f1, label = "val_f1")
-            plt.ylim(0,1)
-            plt.title("Training Loss and Accuracy [Epoch {}]".format(epoch))
-            plt.xlabel("Epoch #")
-            plt.ylabel("Loss/Accuracy")
-            plt.legend()
-            plt.show()
 
